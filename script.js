@@ -12,9 +12,10 @@ document.getElementById('file-input').addEventListener('change', async (event) =
   const selectedFile = fileInput.files[0];
   const reader = new FileReader();
 
-  reader.onload = async () => {
+  reader.onload = async (e) => {
     const img = new Image();
-    img.src = reader.result;
+    img.src = e.target.result;
+
     img.onload = async () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
@@ -43,6 +44,7 @@ document.getElementById('file-input').addEventListener('change', async (event) =
       let compressedImageUrl;
       let quality = 0.9;
       let blob;
+
       do {
         compressedImageUrl = canvas.toDataURL('image/webp', quality);
         const byteString = atob(compressedImageUrl.split(',')[1]);
