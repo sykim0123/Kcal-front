@@ -56,7 +56,7 @@ document.getElementById('file-input').addEventListener('change', async (event) =
       } while (quality > 0.1);
 
       if (quality <= 0.1 && blob.size > 100000) {
-        errorElement.textContent = '100KB 이미지를 ';
+        errorElement.textContent = '100KB';
         return;
       }
 
