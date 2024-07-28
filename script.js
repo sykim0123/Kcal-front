@@ -20,8 +20,8 @@ document.getElementById('file-input').addEventListener('change', async (event) =
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
 
-      const maxWidth = 800;
-      const maxHeight = 800;
+      const maxWidth = 400;
+      const maxHeight = 400;
       let width = img.width;
       let height = img.height;
 
