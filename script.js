@@ -150,7 +150,7 @@ document.getElementById('file-input').addEventListener('change', async (event) =
 
       try {
         // 서버에 분석 요청을 보냅니다.
-        const response = await fetch('https://port-0-kcal-back-lxlts66g89582f3b.sel5.cloudtype.app/analyze-image', {
+        const response = await fetch('http://localhost:3000/analyze-image', {
           method: 'POST', // HTTP POST 메서드를 사용합니다.
           headers: {
             'Content-Type': 'application/json', // 요청 본문이 JSON 형식임을 명시합니다.
