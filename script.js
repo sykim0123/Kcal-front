@@ -10,8 +10,24 @@ document.getElementById('file-input').addEventListener('change', async (event) =
   }
 
   const selectedFile = fileInput.files[0];
-  const reader = new FileReader();
+  let processedFile = selectedFile;
 
+  // HEIF/HEIC 파일 처리
+  if (selectedFile.type === 'image/heic' || selectedFile.type === 'image/heif') {
+    try {
+      processedFile = await heic2any({
+        blob: selectedFile,
+        toType: 'image/jpeg',
+        quality: 0.8
+      });
+    } catch (error) {
+      console.error('Error converting HEIF/HEIC file:', error);
+      errorElement.textContent = 'HEIF/HEIC 파일을 처리하는 중 오류가 발생했습니다.';
+      return;
+    }
+  }
+
+  const reader = new FileReader();
   reader.onload = async (e) => {
     const img = new Image();
     img.src = e.target.result;
@@ -97,19 +113,5 @@ document.getElementById('file-input').addEventListener('change', async (event) =
     };
   };
 
-  if (selectedFile.type === 'image/heic' || selectedFile.type === 'image/heif') {
-    try {
-      const convertedBlob = await heic2any({
-        blob: selectedFile,
-        toType: 'image/jpeg',
-        quality: 0.8
-      });
-      reader.readAsDataURL(convertedBlob);
-    } catch (error) {
-      console.error('Error converting HEIF/HEIC file:', error);
-      errorElement.textContent = 'HEIF/HEIC 파일을 처리하는 중 오류가 발생했습니다.';
-    }
-  } else {
-    reader.readAsDataURL(selectedFile);
-  }
+  reader.readAsDataURL(processedFile);
 });
