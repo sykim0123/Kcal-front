@@ -18,7 +18,7 @@ document.getElementById('file-input').addEventListener('change', async (event) =
       processedFile = await heic2any({
         blob: selectedFile,
         toType: 'image/jpeg',
-        quality: 0.8
+        quality: 0.5 // 더 낮은 품질로 변환하여 파일 크기를 줄임
       });
     } catch (error) {
       console.error('Error converting HEIF/HEIC file:', error);
@@ -36,8 +36,8 @@ document.getElementById('file-input').addEventListener('change', async (event) =
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
 
-      const maxWidth = 400;
-      const maxHeight = 400;
+      const maxWidth = 200;  // 해상도를 더 낮춤
+      const maxHeight = 200; // 해상도를 더 낮춤
       let width = img.width;
       let height = img.height;
 
@@ -58,7 +58,7 @@ document.getElementById('file-input').addEventListener('change', async (event) =
       ctx.drawImage(img, 0, 0, width, height);
 
       let compressedImageUrl;
-      let quality = 0.9;
+      let quality = 0.5; // 더 낮은 품질로 설정
       let blob;
 
       do {
