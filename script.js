@@ -97,5 +97,19 @@ document.getElementById('file-input').addEventListener('change', async (event) =
     };
   };
 
-  reader.readAsDataURL(selectedFile);
+  if (selectedFile.type === 'image/heic' || selectedFile.type === 'image/heif') {
+    try {
+      const convertedBlob = await heic2any({
+        blob: selectedFile,
+        toType: 'image/jpeg',
+        quality: 0.8
+      });
+      reader.readAsDataURL(convertedBlob);
+    } catch (error) {
+      console.error('Error converting HEIF/HEIC file:', error);
+      errorElement.textContent = 'HEIF/HEIC 파일을 처리하는 중 오류가 발생했습니다.';
+    }
+  } else {
+    reader.readAsDataURL(selectedFile);
+  }
 });
