@@ -85,7 +85,7 @@ document.getElementById('file-input').addEventListener('change', async (event) =
       const readerForBlob = new FileReader();
       readerForBlob.onloadend = async () => {
         try {
-          const response = await fetch('https://port-0-kcal-back-lxlts66g89582f3b.sel5.cloudtype.app/analyze-image', {
+          const response = await fetch('http://localhost:3000/analyze-image', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
